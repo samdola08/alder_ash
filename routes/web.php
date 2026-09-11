@@ -8,5 +8,5 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('supplier.dashboard');
+    return view('staff.dashboard');
 });

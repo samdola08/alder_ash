@@ -1,15 +1,8 @@
-@include('supplier.layouts.header')
-<body>
-    <div id="app">
-        <div id="sidebar" class="active">
-            @include('supplier.layouts.sidebar')
-        </div>
+@include('staff.layouts.header')
+@include('staff.layouts.sidebar')
+  <div class="main-wrapper">
+    @include('staff.layouts.topbar')
 
-        @yield('page')
+    @yield('page')
 
-    </div>
-
-    @include('supplier.layouts.footer')
-</body>
-
-</html>
+    @include('staff.layouts.footer')
