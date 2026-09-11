@@ -13,6 +13,10 @@
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
+    # Role-prefix root paths conflict with real asset folders (public/admin, etc.),
+    # so route them to the Laravel front controller instead of a directory listing.
+    RewriteRule ^(admin|staff|supplier|customer)/?$ index.php [L]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
