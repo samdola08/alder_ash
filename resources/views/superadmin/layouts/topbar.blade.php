@@ -19,20 +19,19 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-quick-action" aria-labelledby="quick-actions-dropdown">
             <li class="dropdown-header">Quick Action Shortcuts</li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-plus"></i> New Invoice</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-shield-plus"></i> New Admin</a></li>
             <li><a class="dropdown-item" href="#"><i class="bi bi-person-plus"></i> New User</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> New Product</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> System Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Platform Settings</a></li>
           </ul>
         </div>
       </div>
 
       <!-- Mid navbar: search pill -->
       <div class="navbar-search-wrapper">
-        <input type="text" class="navbar-search-input" placeholder="Search anything in Spark..." id="main-search">
+        <input type="text" class="navbar-search-input" placeholder="Search anything in platform..." id="main-search">
         <button class="navbar-search-btn" aria-label="Search">
           <i class="bi bi-search"></i>
         </button>
@@ -60,11 +59,11 @@
               <!-- Sale Notification -->
               <a href="#" class="notification-item">
                 <div class="notification-icon bg-success text-white">
-                  <i class="bi bi-wallet2"></i>
+                  <i class="bi bi-shield-check"></i>
                 </div>
                 <div class="notification-content">
-                  <p class="notification-text">New sale received: <strong>$150.00</strong></p>
-                  <span class="notification-time">2 mins ago</span>
+                  <p class="notification-text">New admin access granted: <strong>A. Hasan</strong></p>
+                  <span class="notification-time">10 mins ago</span>
                 </div>
                 <span class="notification-unread-dot"></span>
               </a>
@@ -82,10 +81,10 @@
               <!-- Low Stock Notification -->
               <a href="#" class="notification-item">
                 <div class="notification-icon bg-warning text-dark">
-                  <i class="bi bi-box-seam-fill"></i>
+                  <i class="bi bi-exclamation-triangle"></i>
                 </div>
                 <div class="notification-content">
-                  <p class="notification-text">Stock running low: <strong>Hoodie</strong></p>
+                  <p class="notification-text">Security scan completed: <strong>No threats</strong></p>
                   <span class="notification-time">3 hours ago</span>
                 </div>
               </a>
@@ -98,8 +97,8 @@
         <div class="dropdown ms-2">
           <button class="navbar-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false" id="profile-dropdown">
-            <img src="{{ asset('staff/assets/images/avatar.png') }}" alt="Profile Image" class="navbar-profile-img">
-            <span class="navbar-profile-name d-none d-md-inline">Administrator</span>
+            <img src="{{ asset('super-admin/assets/images/avatar.png') }}" alt="Profile Image" class="navbar-profile-img">
+            <span class="navbar-profile-name d-none d-md-inline">Super Admin</span>
             <i class="bi bi-chevron-down navbar-profile-caret"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-profile" aria-labelledby="profile-dropdown">

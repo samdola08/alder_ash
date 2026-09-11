@@ -1,7 +1,7 @@
- <footer class="footer-custom">
+<footer class="footer-custom">
       <div class="footer-left">
         <span class="footer-logo">
-          <i class="bi bi-asterisk"></i> Spark Admin
+          <i class="bi bi-shield-lock-fill"></i> Spark Super
         </span>
         <span class="footer-separator">|</span>
         <span class="footer-copy">&copy; 2026 Made with <i class="bi bi-heart-fill text-danger footer-heart"></i> by<a
@@ -25,12 +25,12 @@
          ========================================== -->
 
   <!-- Local Third-Party Libraries Script dependencies -->
-  <script src="{{ asset('staff/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('staff/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-  <script src="{{ asset('staff/assets/libs/flatpickr/flatpickr.min.js') }}"></script>
+  <script src="{{ asset('super-admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('super-admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('super-admin/assets/libs/flatpickr/flatpickr.min.js') }}"></script>
 
   <!-- Local dashboard interactions controller -->
-  <script src="{{ asset('staff/assets/js/dashboard.js') }}"></script>
+  <script src="{{ asset('super-admin/assets/js/dashboard.js') }}"></script>
 </body>
 
 </html>

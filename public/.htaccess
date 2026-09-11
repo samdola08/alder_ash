@@ -15,7 +15,7 @@
 
     # Role-prefix root paths conflict with real asset folders (public/admin, etc.),
     # so route them to the Laravel front controller instead of a directory listing.
-    RewriteRule ^(admin|staff|supplier|customer)/?$ index.php [L]
+    RewriteRule ^(admin|staff|supplier|customer|super-admin)/?$ index.php [L]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
