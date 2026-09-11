@@ -79,7 +79,7 @@
                     <h2 class="h5 mb-1 section-title"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i><span>Sales Performance</span></h2>
                     <p class="text-muted mb-0">Monthly revenue compared with operational targets.</p>
                   </div>
-                  <a class="btn btn-light btn-sm" href="{{ route('admin.charts') }}">View Details</a>
+                  {{-- <a class="btn btn-light btn-sm" href="{{ route('admin.charts') }}">View Details</a> --}}
                 </div>
 
                 <div class="chart-bars" aria-label="Sales performance chart">
