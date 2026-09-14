@@ -1,16 +1,12 @@
 @extends('supplier.layouts.master')
 @section('page')
-    <div id="main" class="refined-main">
-        @include('supplier.layouts.topbar')
-
-        <div class="refined-wrap">
-          <div class="page">
-            <div class="page-head">
-                <div>
-                  <h1>Profile Statistics</h1>
-                  <div class="page-sub">Here's what's happening with your profile today.</div>
-                </div>
+      <div class="page">
+        <div class="page-head">
+            <div>
+              <h1>Profile Statistics</h1>
+              <div class="page-sub">Here's what's happening with your profile today.</div>
             </div>
+        </div>
 
             <div class="stat-grid">
                 <div class="card stat-card">
@@ -98,7 +94,5 @@
                   </div>
                 </div>
             </div>
-          </div>
-        </div>
-    </div>
+      </div>
 @endsection

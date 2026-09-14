@@ -5,7 +5,13 @@
             @include('supplier.layouts.sidebar')
         </div>
 
-        @yield('page')
+        <div id="main" class="refined-main">
+            @include('supplier.layouts.topbar')
+
+            <div class="refined-wrap">
+                @yield('page')
+            </div>
+        </div>
 
     </div>
 
