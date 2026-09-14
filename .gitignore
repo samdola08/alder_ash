@@ -25,7 +25,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
-/public/admin
-/public/staff
-/public/supplier
-/public/super-admin
+/public/backend/admin
+/public/backend/staff
+/public/backend/supplier
+/public/backend/super-admin
