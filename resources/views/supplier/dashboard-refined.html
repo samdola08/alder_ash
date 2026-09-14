@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard — Refined</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root[data-theme="light"] {
+    --bg-app: #f3f4fb;
+    --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
+    --bg-topbar: #ffffff;
+    --bg-input: #f5f6fc;
+    --text-primary: #1a1d2e;
+    --text-secondary: #8a8fa3;
+    --text-tertiary: #b7bacb;
+    --border: #ecedf7;
+    --accent: #5b5ff0;
+    --accent-hover: #4c50e0;
+    --accent-soft: #eeeefd;
+    --accent-2: #22b8cf;
+    --accent-2-soft: #e3f7fa;
+    --accent-3: #f2578a;
+    --accent-3-soft: #fdebf1;
+    --success: #1fb17a;
+    --shadow-sm: 0 1px 2px rgba(30,32,60,0.04);
+    --shadow-md: 0 8px 24px -8px rgba(60,64,120,0.10);
+    --ring: rgba(91,95,240,0.14);
+  }
+  :root[data-theme="dark"] {
+    --bg-app: #0e0f17;
+    --bg-sidebar: #14162200;
+    --bg-sidebar: #15172400;
+    --bg-sidebar: #151726;
+    --bg-card: #181a2a;
+    --bg-topbar: #151726;
+    --bg-input: #1e2033;
+    --text-primary: #eef0fb;
+    --text-secondary: #8b8fac;
+    --text-tertiary: #565a75;
+    --border: #262940;
+    --accent: #7b7ef9;
+    --accent-hover: #8f92ff;
+    --accent-soft: #23234a;
+    --accent-2: #35d6ee;
+    --accent-2-soft: #163741;
+    --accent-3: #f2578a;
+    --accent-3-soft: #3a1e2c;
+    --success: #35d69a;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 12px 32px -10px rgba(0,0,0,0.55);
+    --ring: rgba(123,126,249,0.18);
+  }
+
+  * { box-sizing: border-box; }
+  ::selection { background: var(--ring); }
+  body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-app);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  svg { display: block; }
+
+  .layout { display: flex; min-height: 100vh; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    width: 236px; background: var(--bg-sidebar); border-right: 1px solid var(--border);
+    padding: 22px 16px; flex-shrink: 0; transition: background 0.3s ease, border-color 0.3s ease;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 26px; }
+  .brand-mark {
+    width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .brand-name { font-weight: 800; font-size: 16.5px; letter-spacing: -0.01em; }
+
+  .nav-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; color: var(--text-tertiary);
+    padding: 18px 10px 8px; text-transform: uppercase;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 11px; padding: 9.5px 11px; border-radius: 10px;
+    font-size: 13.5px; font-weight: 500; color: var(--text-secondary); cursor: pointer; margin-bottom: 2px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-item:hover { background: var(--bg-input); color: var(--text-primary); }
+  .nav-item.active { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+  .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; opacity: 0.9; }
+
+  /* ---------- Content / topbar ---------- */
+  .content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+  .topbar {
+    height: 68px; background: var(--bg-topbar); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
+    position: sticky; top: 0; z-index: 5; backdrop-filter: blur(8px);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+  .topbar-search {
+    flex: 1; max-width: 340px; display: flex; align-items: center; gap: 9px;
+    background: var(--bg-input); border: 1px solid transparent; border-radius: 11px; padding: 9px 14px;
+    color: var(--text-tertiary); font-size: 13px; transition: border-color 0.15s ease;
+  }
+  .topbar-search:hover { border-color: var(--border); }
+  .topbar-search svg { color: var(--text-tertiary); flex-shrink: 0; }
+
+  .topbar-right { display: flex; align-items: center; gap: 14px; }
+
+  .theme-toggle {
+    position: relative; width: 60px; height: 32px; border-radius: 999px; background: var(--bg-input);
+    border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; padding: 3px;
+  }
+  .theme-toggle .thumb {
+    position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--accent); display: flex; align-items: center; justify-content: center; color: #fff;
+    transition: transform 0.25s cubic-bezier(.4,0,.2,1); box-shadow: 0 2px 6px rgba(91,95,240,0.4);
+  }
+  .theme-toggle .thumb svg { width: 13px; height: 13px; }
+  :root[data-theme="dark"] .theme-toggle .thumb { transform: translateX(28px); }
+
+  .icon-btn {
+    width: 38px; height: 38px; border-radius: 11px; background: var(--bg-input); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; color: var(--text-secondary);
+    position: relative; cursor: pointer; transition: background 0.15s ease, color 0.15s ease;
+  }
+  .icon-btn:hover { background: var(--accent-soft); color: var(--accent); }
+  .icon-btn svg { width: 17px; height: 17px; }
+  .icon-btn .ping {
+    position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-3); box-shadow: 0 0 0 2px var(--bg-topbar);
+  }
+
+  .topbar-user { display: flex; align-items: center; gap: 10px; padding-left: 4px; border-left: 1px solid var(--border); }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center;
+    justify-content: center; color: #fff; font-weight: 700; font-size: 13px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  .avatar.sm { width: 34px; height: 34px; font-size: 12px; }
+  .topbar-user .name { font-size: 13px; font-weight: 700; line-height: 1.2; }
+  .topbar-user .role { font-size: 11.5px; color: var(--text-secondary); }
+
+  /* ---------- Page ---------- */
+  .page { padding: 28px 32px 40px; max-width: 1400px; }
+  .page-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px; }
+  h1 { font-size: 23px; font-weight: 800; letter-spacing: -0.01em; margin: 0; }
+  .page-sub { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px;
+    box-shadow: var(--shadow-sm); transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr) 1.3fr; gap: 16px; margin-bottom: 18px; }
+  .stat-card { display: flex; align-items: center; gap: 13px; }
+  .stat-icon {
+    width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .stat-icon svg { width: 20px; height: 20px; }
+  .stat-label { color: var(--text-secondary); font-size: 12px; font-weight: 500; }
+  .stat-value { font-size: 19px; font-weight: 800; letter-spacing: -0.01em; margin-top: 1px; }
+
+  .profile-card { display: flex; align-items: center; gap: 13px; }
+  .profile-card .name { font-weight: 700; font-size: 14px; }
+  .profile-card .handle { color: var(--text-secondary); font-size: 12px; margin-top: 1px; }
+  .profile-card .verify { margin-left: auto; color: var(--success); }
+  .profile-card .verify svg { width: 18px; height: 18px; }
+
+  .main-grid { display: grid; grid-template-columns: 2.2fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; }
+  .card-title { font-weight: 700; font-size: 14.5px; }
+  .card-meta { font-size: 12px; color: var(--text-secondary); }
+  .card-meta b { color: var(--text-primary); font-weight: 700; }
+
+  .bars { display: flex; align-items: flex-end; gap: 10px; height: 180px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; gap: 8px; }
+  .bar {
+    width: 55%; border-radius: 6px 6px 2px 2px; background: var(--accent-soft);
+    position: relative; transition: background 0.15s ease;
+  }
+  .bar.peak { background: linear-gradient(180deg, var(--accent), var(--accent-hover)); }
+  .bar-col:hover .bar { background: linear-gradient(180deg, var(--accent-2), var(--accent-2)); }
+  .bar-month { font-size: 10.5px; color: var(--text-tertiary); font-weight: 600; }
+
+  .msg-item { display: flex; align-items: center; gap: 11px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .msg-item:last-of-type { border-bottom: none; }
+  .msg-item .name { font-size: 13px; font-weight: 700; }
+  .msg-item .handle { font-size: 11.5px; color: var(--text-secondary); margin-top: 1px; }
+  .start-btn {
+    width: 100%; margin-top: 14px; background: var(--accent); color: #fff; border: none; border-radius: 11px;
+    padding: 11px; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.15s ease;
+    font-family: inherit;
+  }
+  .start-btn:hover { background: var(--accent-hover); }
+
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 16px; }
+
+  .sparkline-value { font-size: 22px; font-weight: 800; margin: 10px 0 2px; }
+  .region-row { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-secondary); }
+  .region-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+  .comment-row { display: flex; align-items: flex-start; gap: 10px; }
+  .comment-row .name { font-size: 13px; font-weight: 700; }
+  .comment-row .text { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
+
+  .donut-wrap { display: flex; align-items: center; gap: 18px; }
+  .donut {
+    width: 108px; height: 108px; border-radius: 50%; flex-shrink: 0;
+    background: conic-gradient(var(--accent) 0% 30%, var(--accent-2) 30% 100%);
+    display: flex; align-items: center; justify-content: center; position: relative;
+  }
+  .donut::before { content: ""; position: absolute; inset: 15px; background: var(--bg-card); border-radius: 50%; }
+  .donut-center { position: relative; font-size: 15px; font-weight: 800; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">L</div>
+      <div class="brand-name">Logo</div>
+    </div>
+
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Dashboard
+    </div>
+
+    <div class="nav-label">Menu</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Components</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="15" rx="2"/><path d="M3 9h18"/></svg>Extra Components</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>Layouts</div>
+
+    <div class="nav-label">Forms &amp; Tables</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Form Elements</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Table</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>Datatable</div>
+
+    <div class="nav-label">Extra UI</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>Widgets</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>Icons</div>
+    <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M12 19V4M20 19v-6"/></svg>Charts</div>
+  </div>
+
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-search">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        Search...
+      </div>
+      <div class="topbar-right">
+        <div class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <div class="thumb" id="themeThumb">
+            <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+          </div>
+        </div>
+        <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="ping"></span></div>
+        <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 8.4 6a2 2 0 0 0 2.2 0L22 7"/></svg></div>
+        <div class="topbar-user">
+          <div class="avatar sm">JD</div>
+          <div>
+            <div class="name">John Duck</div>
+            <div class="role">@johnducky</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="page-head">
+        <div>
+          <h1>Profile Statistics</h1>
+          <div class="page-sub">Here's what's happening with your profile today.</div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="card stat-card">
+          <div class="stat-icon" style="background:var(--accent-soft);color:var(--accent);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div><div class="stat-label">Profile Views</div><div class="stat-value">112,000</div></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-icon" style="background:var(--accent-2-soft);color:var(--accent-2);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div><div class="stat-label">Followers</div><div class="stat-value">183,000</div></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-icon" style="background:var(--accent-2-soft);color:var(--accent-2);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+          </div>
+          <div><div class="stat-label">Following</div><div class="stat-value">80,000</div></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-icon" style="background:var(--accent-3-soft);color:var(--accent-3);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21 12 16l-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16Z"/></svg>
+          </div>
+          <div><div class="stat-label">Saved Post</div><div class="stat-value">112</div></div>
+        </div>
+        <div class="card profile-card">
+          <div class="avatar">JD</div>
+          <div><div class="name">John Duck</div><div class="handle">@johnducky</div></div>
+          <div class="verify"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+        </div>
+      </div>
+
+      <div class="main-grid">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Profile Visit</div>
+            <div class="card-meta">This year · <b>+18.2%</b></div>
+          </div>
+          <div class="bars">
+            <div class="bar-col"><div class="bar" style="height:25%"></div><div class="bar-month">Jan</div></div>
+            <div class="bar-col"><div class="bar" style="height:52%"></div><div class="bar-month">Feb</div></div>
+            <div class="bar-col"><div class="bar peak" style="height:90%"></div><div class="bar-month">Mar</div></div>
+            <div class="bar-col"><div class="bar" style="height:53%"></div><div class="bar-month">Apr</div></div>
+            <div class="bar-col"><div class="bar" style="height:22%"></div><div class="bar-month">May</div></div>
+            <div class="bar-col"><div class="bar" style="height:50%"></div><div class="bar-month">Jun</div></div>
+            <div class="bar-col"><div class="bar peak" style="height:88%"></div><div class="bar-month">Jul</div></div>
+            <div class="bar-col"><div class="bar" style="height:48%"></div><div class="bar-month">Aug</div></div>
+            <div class="bar-col"><div class="bar" style="height:30%"></div><div class="bar-month">Sep</div></div>
+            <div class="bar-col"><div class="bar" style="height:56%"></div><div class="bar-month">Oct</div></div>
+            <div class="bar-col"><div class="bar peak" style="height:85%"></div><div class="bar-month">Nov</div></div>
+            <div class="bar-col"><div class="bar" style="height:47%"></div><div class="bar-month">Dec</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Recent Messages</div></div>
+          <div class="msg-item"><div class="avatar sm" style="background:linear-gradient(135deg,#f2578a,#f7b1c6)">HS</div><div><div class="name">Hank Schrader</div><div class="handle">@johnducky</div></div></div>
+          <div class="msg-item"><div class="avatar sm" style="background:linear-gradient(135deg,#5b5ff0,#8f92ff)">DW</div><div><div class="name">Dean Winchester</div><div class="handle">@imdean</div></div></div>
+          <div class="msg-item"><div class="avatar sm" style="background:linear-gradient(135deg,#22b8cf,#7fe3ef)">JD</div><div><div class="name">John Dodol</div><div class="handle">@dodoljohn</div></div></div>
+          <button class="start-btn">Start Conversation</button>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="card">
+          <div class="card-title">Profile Visit</div>
+          <div class="sparkline-value">862</div>
+          <div class="region-row"><span class="region-dot"></span>Europe · this week</div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Latest Comments</div></div>
+          <div class="comment-row">
+            <div class="avatar sm" style="background:linear-gradient(135deg,#9b6cf2,#c79bff)">SC</div>
+            <div><div class="name">Si Cantik</div><div class="text">Congratulations on your graduation!</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="margin-bottom:16px;">Visitors Profile</div>
+          <div class="donut-wrap">
+            <div class="donut"><div class="donut-center">565K</div></div>
+            <div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Returning · 70%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--accent-2)"></span>New · 30%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+
+  const sunPath = '<circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/>';
+  const moonPath = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>';
+
+  function setTheme(mode) {
+    root.setAttribute('data-theme', mode);
+    icon.innerHTML = mode === 'dark' ? moonPath : sunPath;
+    localStorage.setItem('demo-theme', mode);
+  }
+
+  toggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  const saved = localStorage.getItem('demo-theme');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(saved || (systemDark ? 'dark' : 'light'));
+</script>
+
+</body>
+</html>

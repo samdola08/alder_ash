@@ -5,3 +5,5 @@
     <script src="{{ asset('backend/supplier/assets/js/pages/dashboard.js') }}"></script>
 
     <script src="{{ asset('backend/supplier/assets/js/main.js') }}"></script>
+
+    <script src="{{ asset('backend/shared/assets/js/refined.js') }}"></script>
