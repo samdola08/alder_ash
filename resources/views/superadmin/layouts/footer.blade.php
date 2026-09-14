@@ -31,6 +31,35 @@
 
   <!-- Local dashboard interactions controller -->
   <script src="{{ asset('backend/super-admin/assets/js/dashboard.js') }}"></script>
+
+  <!-- Theme Toggle Controller -->
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const iconDark = document.getElementById('theme-icon-dark');
+      const iconLight = document.getElementById('theme-icon-light');
+      const STORAGE_KEY = 'spark-theme';
+
+      function apply(mode) {
+        root.setAttribute('data-theme', mode);
+        if (iconDark) iconDark.style.display = mode === 'dark' ? 'none' : 'inline-block';
+        if (iconLight) iconLight.style.display = mode === 'dark' ? 'inline-block' : 'none';
+      }
+
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      apply(saved || (systemDark ? 'dark' : 'light'));
+
+      if (btn) {
+        btn.addEventListener('click', function () {
+          const next = (root.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+          apply(next);
+          localStorage.setItem(STORAGE_KEY, next);
+        });
+      }
+    })();
+  </script>
 </body>
 
 </html>

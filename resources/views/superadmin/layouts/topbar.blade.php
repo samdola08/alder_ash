@@ -39,6 +39,11 @@
 
       <!-- Right actions -->
       <div class="navbar-actions">
+        <!-- Theme Toggle -->
+        <button class="navbar-action-btn me-1" aria-label="Toggle dark mode" id="theme-toggle">
+          <i class="bi bi-moon-stars" id="theme-icon-dark"></i>
+          <i class="bi bi-sun" id="theme-icon-light" style="display:none;"></i>
+        </button>
         <!-- Fullscreen Toggle -->
         <button class="navbar-action-btn me-1" aria-label="Toggle Fullscreen" id="btn-fullscreen">
           <i class="bi bi-arrows-fullscreen"></i>

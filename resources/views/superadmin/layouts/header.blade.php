@@ -21,6 +21,9 @@
 
   <!-- Main Design System & Custom Stylesheet -->
   <link rel="stylesheet" href="{{ asset('backend/super-admin/assets/css/main.css') }}">
+
+  <!-- Dark Theme Overrides -->
+  <link rel="stylesheet" href="{{ asset('backend/super-admin/assets/css/theme.css') }}">
 </head>
 
 <body>
